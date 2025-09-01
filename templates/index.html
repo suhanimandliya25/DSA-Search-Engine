@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Page</title>
+    <style>
+      .form {
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .buttons {
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+       text-align: center;
+       justify-content: center;
+      }
+      /* Add background color and border to the buttons */
+      button {
+        background-color: #F9F5F6;
+        border: none;
+        color: rgb(0, 0, 0);
+        transition: box-shadow 0.1s; /* Add transition effect for smooth animation */
+      }
+      
+      /* Change the background color when hovering over the buttons */
+      button:hover {
+        background-color: #F8E8EE;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+      }
+      
+      /* Remove the default link styling */
+      button a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form">
+      <form method="POST">
+        {{ form.hidden_tag() }} {{ form.search.label }} {{ form.search() }} {{
+        form.submit() }}
+      </form>
+    </div>
+    <div class="buttons">
+      {% if results %}
+        <p style="font-size: 1.2rem;"><b>The Question links in Decreasing Order of Relevance are:</b></p>
+        {% for result in results %}
+          <button><a href="{{ result['Question Link'] }}" target="_blank">{{ result['Question Name'] }}</a></button>
+        {% endfor %}
+      {% else %}
+        {% if form.search.data %}
+          <p><b>Results Found. Please Enter the Query Again.</b></p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </body>
+</html>
